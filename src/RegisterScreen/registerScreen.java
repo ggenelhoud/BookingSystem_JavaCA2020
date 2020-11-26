@@ -169,7 +169,7 @@ public class registerScreen extends JFrame implements ActionListener {
             locationBox.setVisible(false);
         }else{
             JOptionPane.showMessageDialog(this, "Please choose a registration mode.");
-        }
+            }
 
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be empty!!!");
@@ -198,7 +198,9 @@ public class registerScreen extends JFrame implements ActionListener {
             String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
             String dbUser = "Gabriel_2019386";
             String dbPassword = "2019386";
-            String query = "INSERT INTO user values('" + name + "','" + password + "','" + email + "')";
+            String query = "INSERT INTO user (username,password,email_address,phone_number)"
+                    + " VALUES('" + nameField.getText() + "','" + passwordField.getText()
+                    + "','" + emailField.getText() + "','" + phoneField.getText() + "')";
 
             Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
             Statement stmt = conn.createStatement();
