@@ -1,6 +1,10 @@
 
 package login;
 
+
+import CustomerScreen.customerScreen;
+import RegisterScreen.registerScreen;
+import login.adminLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -29,6 +33,8 @@ public class Controller implements ActionListener {
                
         if((result)){
             JOptionPane.showMessageDialog(view.success, "Logged in successfuly!!!");
+            new customerScreen();
+            
         }
         else{
             JOptionPane.showMessageDialog(view.success, "Wrong Credentials");
@@ -36,19 +42,20 @@ public class Controller implements ActionListener {
         }
         if (e.getSource() == view.registerButton) {
             
-            registerScreen open = new registerScreen();
-            open.setVisible(true);
-        }
-    }    
-    
-   public static class exitbuttonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
+            new registerScreen();
             
-            System.exit(0);
+        } 
+        if (e.getSource() == view.exitbutton) {
+          int n = JOptionPane.showConfirmDialog(view.exitbutton,"Are you sure you want to exit?", "exit", JOptionPane.YES_NO_OPTION);
+            if (n == 0) {
+                System.exit(n);
+            }             
         }
-   }
+        if (e.getSource() == view.adminButton)  {
+                
+                new adminLogin();
+            }
+    }       
 }
   
     

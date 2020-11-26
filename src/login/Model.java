@@ -9,6 +9,7 @@ import java.sql.Statement;
 public class Model {
     
     Controller controller;
+    adminLogin adminLogin;
 
    
     public boolean login(User user){

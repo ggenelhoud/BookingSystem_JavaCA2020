@@ -1,4 +1,4 @@
-package login;
+package CustomerScreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,7 +43,7 @@ public class customerScreen implements ActionListener{
     frame.setTitle("GUI Application");
     frame.add(panel, BorderLayout.CENTER);
     frame.add(panel);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     frame.pack();
     frame.setVisible(true);
     
