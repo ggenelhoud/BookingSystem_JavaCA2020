@@ -1,15 +1,16 @@
-package login;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import controller.Controller;
+import login.User;
 
 public class Model {
     
     Controller controller;
-    adminLogin adminLogin;
 
    
     public boolean login(User user){
