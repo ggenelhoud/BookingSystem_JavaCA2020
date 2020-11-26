@@ -6,23 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import controller.Controller;
-import login.User;
+import user.User;
 
 public class Model {
-    
+
     Controller controller;
 
-   
-    public boolean login(User user){
-        
+    public boolean login(User user) {
+
         boolean result = false;
-        
+
         try {
 
             String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
             String dbUser = "Gabriel_2019386";
             String dbPassword = "2019386";
-            String query = "SELECT * FROM user WHERE username = '" + user.getUn() + "' AND password = '" + user.getPw()+ "';";
+            String query = "SELECT * FROM user WHERE username = '" + user.getUn() + "' AND password = '" + user.getPw() + "';";
 
             // Get a connection to the database
             Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
@@ -56,8 +55,8 @@ public class Model {
         } catch (Exception e) {
             System.out.println(e);
         }
-        
+
         return result;
-        
+
     }
 }

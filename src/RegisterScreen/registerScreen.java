@@ -1,5 +1,6 @@
 package RegisterScreen;
 
+import controller.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -17,16 +19,25 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class registerScreen extends JFrame implements ActionListener {
 
     JTextField nameField, emailField, phoneField, passwordField, repasswordField;
+    JLabel adminLabel, storeLocation;
     JButton register;
+    Controller controller;
+    JRadioButton adminButton, userButton;
+    JComboBox locationBox;
+    ButtonGroup group;
     private String[] locations = {"Grafton Street", "Candem Street", "O'Connell Street"};
 
-    public static void main(String[] args) {
+    public registerScreen(Controller controller) {
+
+        this.controller = controller;
         new registerScreen();
+
     }
 
     public registerScreen() {
@@ -38,72 +49,95 @@ public class registerScreen extends JFrame implements ActionListener {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
-        //mainPanel.setBackground(Color.red);
         this.add(mainPanel);
+        
+        adminLabel = new JLabel("Select registration mode:");
+        adminLabel.setForeground(Color.RED);
+        adminLabel.setFont(new Font("Arial", Font.BOLD, 17));
+        adminLabel.setBounds(10, 40, 220, 25);
+        mainPanel.add(adminLabel);
+        
+        userButton = new JRadioButton("User");
+        userButton.setBounds(213, 38, 60, 35);
+        userButton.addActionListener(this);
+        userButton.setSelected(false);
+        mainPanel.add(userButton);   
 
+        adminButton = new JRadioButton("Admin");
+        adminButton.setBounds(270, 38, 80, 35);
+        adminButton.addActionListener(this);
+        adminButton.setSelected(false);
+        mainPanel.add(adminButton);
+        
+        group = new ButtonGroup();
+        group.add(userButton);
+        group.add(adminButton);
+        
         JLabel nameLabel = new JLabel("Full Name:");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        nameLabel.setBounds(20, 90, 80, 25);// dimensions are based in: x, y, width, height
+        nameLabel.setBounds(20, 105, 90, 30);// dimensions are based in: x, y, width, height
         mainPanel.add(nameLabel);
 
         nameField = new JTextField();
-        nameField.setBounds(180, 90, 375, 30);
+        nameField.setBounds(180, 105, 375, 30);
         nameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
         mainPanel.add(nameField);
 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        emailLabel.setBounds(20, 150, 80, 25);// dimensions are based in: x, y, width, height
+        emailLabel.setBounds(20, 165, 80, 25);// dimensions are based in: x, y, width, height
         mainPanel.add(emailLabel);
 
         emailField = new JTextField();
         emailField.setFont(new Font("Arial MT", Font.PLAIN, 18));
-        emailField.setBounds(180, 150, 375, 30);
+        emailField.setBounds(180, 165, 375, 30);
         mainPanel.add(emailField);
 
-        JLabel phoneLabel = new JLabel("Phone Number:", JLabel.LEFT);
+        JLabel phoneLabel = new JLabel("Mobile no.:", JLabel.LEFT);
         phoneLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        phoneLabel.setBounds(20, 210, 120, 25);
+        phoneLabel.setBounds(20, 225, 120, 30);
         mainPanel.add(phoneLabel);
 
         phoneField = new JTextField();
         phoneField.setFont(new Font("Arial MT", Font.PLAIN, 18));
-        phoneField.setBounds(180, 210, 375, 30);
+        phoneField.setBounds(180, 225, 375, 30);
         mainPanel.add(phoneField);
 
         JLabel password = new JLabel("Password:");
         password.setFont(new Font("Arial", Font.BOLD, 17));
-        password.setBounds(20, 270, 160, 30);
+        password.setBounds(20, 285, 160, 30);
         mainPanel.add(password);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(180, 270, 375, 30);
+        passwordField.setBounds(180, 285, 375, 30);
         mainPanel.add(passwordField);
 
         JLabel repassword = new JLabel("Re-enter Password:");
         repassword.setFont(new Font("Arial", Font.BOLD, 17));
-        repassword.setBounds(20, 330, 160, 30);
+        repassword.setBounds(20, 345, 160, 30);
         mainPanel.add(repassword);
 
         repasswordField = new JPasswordField();
-        repasswordField.setBounds(180, 330, 375, 30);
+        repasswordField.setBounds(180, 345, 375, 30);
         mainPanel.add(repasswordField);
+
+        
 
         GridLayout bottomLayout = new GridLayout(1, 1);
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.red);
         bottomPanel.setLayout(bottomLayout);
 
-        JLabel location = new JLabel("Store Location:");
-        location.setFont(new Font("Arial", Font.BOLD, 17));
-        location.setBounds(20, 390, 160, 30);
-        mainPanel.add(location);
+        storeLocation = new JLabel("Store Location:");
+        storeLocation.setFont(new Font("Arial", Font.BOLD, 17));
+        storeLocation.setBounds(20, 405, 160, 30);
+        mainPanel.add(storeLocation).setVisible(false);
 
-        JComboBox locationBox = new JComboBox(locations);
-        locationBox.setBounds(180, 390, 377, 35);
+        locationBox = new JComboBox(locations);
+        locationBox.setBounds(180, 405, 377, 35);
         locationBox.setBackground(Color.LIGHT_GRAY);
         locationBox.setSelectedIndex(0);
-        mainPanel.add(locationBox);
+        mainPanel.add(locationBox).setVisible(false);
 
         register = new JButton("Register");
         register.setBounds(280, 470, 150, 80);
@@ -120,8 +154,22 @@ public class registerScreen extends JFrame implements ActionListener {
         String mobile = phoneField.getText();
         String password = passwordField.getText();
         String repassword = repasswordField.getText();
-        int mobileLen =  mobile.length();
+        int mobileLen = mobile.length();
         int passLen = password.length();
+
+        if ( adminButton.isSelected()) {
+            System.out.println("admin radio button working");
+            JOptionPane.showMessageDialog(this, "You are now registering as an Administrator.");
+            storeLocation.setVisible(true);
+            locationBox.setVisible(true);
+        }else if (userButton.isSelected()) {
+            System.out.println("user radio button working");
+            //JOptionPane.showMessageDialog(this, "You are now registering as an Administrator.");
+            storeLocation.setVisible(false);
+            locationBox.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Please choose a registration mode.");
+        }
 
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Name cannot be empty!!!");
@@ -142,6 +190,7 @@ public class registerScreen extends JFrame implements ActionListener {
         if (!password.equals(repassword)) {
             JOptionPane.showMessageDialog(this, "Passwords does not match!!!");
         }
+
         System.out.println(password);
         System.out.println(repassword);
 
@@ -167,7 +216,6 @@ public class registerScreen extends JFrame implements ActionListener {
             System.out.println(d);
         }
     }
-    
 
     public String getNameField() {
         return nameField.getText();

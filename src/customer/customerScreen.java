@@ -1,60 +1,108 @@
-package CustomerScreen;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package customer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
- 
-public class customerScreen implements ActionListener{
-    
-    public JFrame frame;
-    private JLabel label;
-    private JPanel panel;
-    private JButton button;
-    private int count = 1;
-    
+import javax.swing.border.Border;
+
+/**
+ *
+ * @author genel
+ */
+public class customerScreen extends JFrame {
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-
-    new customerScreen();
-    
+        // Setting some attributes of the object
+        new customerScreen();
     }
-    
-   public customerScreen(){
-       
-    button = new JButton("Click Here");
-    label = new JLabel("Number of Clicks: ");
-    button.addActionListener(this);
-    
-    panel = new JPanel();
-    panel.setBackground(Color.cyan);
-    panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 20));
-    panel.setLayout(new GridLayout (0, 1));
-    panel.add(button);
-    panel.add(label);
-    
-    frame = new JFrame();
-    frame.setTitle("GUI Application");
-    frame.add(panel, BorderLayout.CENTER);
-    frame.add(panel);
-    frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    frame.pack();
-    frame.setVisible(true);
-    
-    
-   }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        label.setText("Number of Clicks: " + count);
-        count++;
+    public customerScreen() {
+
+        components();
+
     }
-    
+
+    public void components() {
+
+        this.setVisible(true);
+        this.setSize(900, 800);
+        this.setTitle("Layout Managers");
+
+        JButton region = new JButton("Region");
+        JButton product = new JButton("Log Out");
+
+        JButton rep = new JButton("Sales Rep");
+
+        JLabel welcome = new JLabel("\t" + "Welcome Gabriel,");
+        welcome.setFont(new Font("Arial", Font.PLAIN, 18));
+        welcome.setForeground(Color.WHITE);
+        JLabel two = new JLabel("two");
+        JLabel three = new JLabel("three");
+        JLabel four = new JLabel("four");
+        JLabel five = new JLabel("five");
+
+        JPanel p1 = new JPanel();
+        p1.setBackground(Color.black);
+        p1.setPreferredSize(new Dimension(30, 30));
+        GridLayout grid = new GridLayout(1, 2);
+        BorderLayout border = new BorderLayout();
+        p1.setLayout(border);
+
+        JPanel left = new JPanel();
+        left.setLayout(border);
+        p1.add(left);
+
+        JPanel p3 = new JPanel();
+        p3.setBackground(Color.white);
+
+        JPanel p4 = new JPanel();
+        p4.setBackground(Color.cyan);
+        Border border1 = BorderFactory.createLineBorder(Color.black, 1);
+        p4.setBorder(border1);
+        p4.setPreferredSize(new Dimension(220, 50));
+
+        BorderLayout manager = new BorderLayout();
+
+        this.setLayout(manager);
+
+        p1.add(welcome);
+        //p1.add(rep);
+        p1.add(region);
+        p1.add(product);
+        p1.setBorder(border1);
+
+        p3.add(three);
+        p4.add(four);
+
+        p1.add(welcome, BorderLayout.CENTER);
+        p1.add(product, BorderLayout.LINE_END);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.add(p1, BorderLayout.PAGE_START);
+        this.add(p3, BorderLayout.CENTER);
+        this.add(p4, BorderLayout.LINE_START);
+
+    }
+
+    public void repaint() {
+
+        this.validate();
+        this.repaint();
+
+    }
 }
