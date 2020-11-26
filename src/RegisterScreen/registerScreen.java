@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 
 public class registerScreen extends JFrame implements ActionListener {
 
-    JTextField nameField, emailField, phoneField, passwordField, repasswordField;
+    JTextField fnameField, lnameField, emailField, phoneField, passwordField, repasswordField, usernameField;
     JLabel adminLabel, storeLocation;
     JButton register;
     Controller controller;
@@ -42,7 +42,7 @@ public class registerScreen extends JFrame implements ActionListener {
 
     public registerScreen() {
         //this.setSize(650, 830);
-        this.setMinimumSize(new Dimension(650, 690));
+        this.setMinimumSize(new Dimension(650, 800));
         this.setTitle("Grafton Barber - Create an User Account");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -73,74 +73,87 @@ public class registerScreen extends JFrame implements ActionListener {
         group.add(userButton);
         group.add(adminButton);
         
-        JLabel nameLabel = new JLabel("Full Name:");
-        nameLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        nameLabel.setBounds(20, 105, 90, 30);// dimensions are based in: x, y, width, height
-        mainPanel.add(nameLabel);
+        JLabel fname = new JLabel("First Name:");
+        fname.setFont(new Font("Arial", Font.BOLD, 17));
+        fname.setBounds(20, 105, 110, 30);// dimensions are based in: x, y, width, height
+        mainPanel.add(fname);
 
-        nameField = new JTextField();
-        nameField.setBounds(180, 105, 375, 30);
-        nameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
-        mainPanel.add(nameField);
+        fnameField = new JTextField();
+        fnameField.setBounds(180, 105, 375, 30);
+        fnameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
+        mainPanel.add(fnameField);
+        
+        JLabel lname = new JLabel("Last Name:");
+        lname.setFont(new Font("Arial", Font.BOLD, 17));
+        lname.setBounds(20, 165, 90, 30);// dimensions are based in: x, y, width, height
+        mainPanel.add(lname);
+        
+        lnameField = new JTextField();
+        lnameField.setBounds(180, 165, 375, 30);
+        lnameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
+        mainPanel.add(lnameField);
+        
+        JLabel username = new JLabel("Username:");
+        username.setFont(new Font("Arial", Font.BOLD, 17));
+        username.setBounds(20, 225, 110, 30);// dimensions are based in: x, y, width, height
+        mainPanel.add(username);
+
+        usernameField = new JTextField();
+        usernameField.setBounds(180, 225, 375, 30);
+        usernameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
+        mainPanel.add(usernameField);
 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        emailLabel.setBounds(20, 165, 80, 25);// dimensions are based in: x, y, width, height
+        emailLabel.setBounds(20, 285, 80, 25);// dimensions are based in: x, y, width, height
         mainPanel.add(emailLabel);
 
         emailField = new JTextField();
         emailField.setFont(new Font("Arial MT", Font.PLAIN, 18));
-        emailField.setBounds(180, 165, 375, 30);
+        emailField.setBounds(180, 285, 375, 30);
         mainPanel.add(emailField);
 
         JLabel phoneLabel = new JLabel("Mobile no.:", JLabel.LEFT);
         phoneLabel.setFont(new Font("Arial", Font.BOLD, 17));
-        phoneLabel.setBounds(20, 225, 120, 30);
+        phoneLabel.setBounds(20, 345, 120, 30);
         mainPanel.add(phoneLabel);
 
         phoneField = new JTextField();
         phoneField.setFont(new Font("Arial MT", Font.PLAIN, 18));
-        phoneField.setBounds(180, 225, 375, 30);
+        phoneField.setBounds(180, 345, 375, 30);
         mainPanel.add(phoneField);
 
         JLabel password = new JLabel("Password:");
         password.setFont(new Font("Arial", Font.BOLD, 17));
-        password.setBounds(20, 285, 160, 30);
+        password.setBounds(20, 405, 160, 30);
         mainPanel.add(password);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(180, 285, 375, 30);
+        passwordField.setBounds(180, 405, 375, 30);
         mainPanel.add(passwordField);
 
         JLabel repassword = new JLabel("Re-enter Password:");
         repassword.setFont(new Font("Arial", Font.BOLD, 17));
-        repassword.setBounds(20, 345, 160, 30);
+        repassword.setBounds(20, 465, 160, 30);
         mainPanel.add(repassword);
 
         repasswordField = new JPasswordField();
-        repasswordField.setBounds(180, 345, 375, 30);
+        repasswordField.setBounds(180, 465, 375, 30);
         mainPanel.add(repasswordField);
-
-        
-
-        GridLayout bottomLayout = new GridLayout(1, 1);
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.red);
-        bottomPanel.setLayout(bottomLayout);
 
         storeLocation = new JLabel("Store Location:");
         storeLocation.setFont(new Font("Arial", Font.BOLD, 17));
-        storeLocation.setBounds(20, 405, 160, 30);
+        storeLocation.setBounds(20, 525, 160, 30);
         mainPanel.add(storeLocation).setVisible(false);
 
         locationBox = new JComboBox(locations);
-        locationBox.setBounds(180, 405, 377, 35);
+        locationBox.setBounds(180, 525, 377, 35);
         locationBox.setBackground(Color.LIGHT_GRAY);
         locationBox.setSelectedIndex(0);
         mainPanel.add(locationBox).setVisible(false);
 
         register = new JButton("Register");
-        register.setBounds(280, 470, 150, 80);
+        register.setBounds(280, 580, 150, 80);
         register.addActionListener(this);
         mainPanel.add(register);
 
@@ -149,7 +162,9 @@ public class registerScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        String name = nameField.getText();
+        String fname = fnameField.getText();
+        String lname = lnameField.getText();
+        String username = usernameField.getText();
         String email = emailField.getText();
         String mobile = phoneField.getText();
         String password = passwordField.getText();
@@ -171,8 +186,11 @@ public class registerScreen extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Please choose a registration mode.");
             }
 
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Name cannot be empty!!!");
+        if (fname.isEmpty() && lname.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter both first and last name!!!");
+        }
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please choose a Username");
         }
         if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "You must enter email address.");
@@ -198,9 +216,9 @@ public class registerScreen extends JFrame implements ActionListener {
             String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
             String dbUser = "Gabriel_2019386";
             String dbPassword = "2019386";
-            String query = "INSERT INTO user (username,password,email_address,phone_number)"
-                    + " VALUES('" + nameField.getText() + "','" + passwordField.getText()
-                    + "','" + emailField.getText() + "','" + phoneField.getText() + "')";
+            String query = "INSERT INTO users (f_name, l_name, username, password, email_address, phone_number)"
+                    + " VALUES('" + fnameField.getText() + "','" +lnameField.getText()+ "','" + usernameField.getText()+ "','" + passwordField.getText()
+                    + "','" + emailField.getText() + "','" + phoneField.getText()+"')";
 
             Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
             Statement stmt = conn.createStatement();
@@ -219,23 +237,23 @@ public class registerScreen extends JFrame implements ActionListener {
         }
     }
 
-    public String getNameField() {
-        return nameField.getText();
-    }
-
-    public String getEmailField() {
-        return emailField.getText();
-    }
-
-    public String getPhoneField() {
-        return phoneField.getText();
-    }
-
-    public String getPasswordField() {
-        return passwordField.getText();
-    }
-
-    public String getRePassword() {
-        return repasswordField.getText();
-    }
+//    public String getNameField() {
+//        return fnameField.getText();
+//    }
+//
+//    public String getEmailField() {
+//        return emailField.getText();
+//    }
+//
+//    public String getPhoneField() {
+//        return phoneField.getText();
+//    }
+//
+//    public String getPasswordField() {
+//        return passwordField.getText();
+//    }
+//
+//    public String getRePassword() {
+//        return repasswordField.getText();
+//    }
 }

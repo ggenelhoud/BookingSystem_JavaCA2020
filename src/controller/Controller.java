@@ -6,6 +6,7 @@ import adminLogin.adminLogin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.View;
 import model.Model;
@@ -23,7 +24,7 @@ public class Controller implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         if (e.getSource() == view.loginButton) {
             String un = view.getUsername();
             String pw = view.getPassword();
@@ -34,7 +35,9 @@ public class Controller implements ActionListener {
 
             if ((result)) {
                 JOptionPane.showMessageDialog(view.success, "Logged in successfuly!!!");
+
                 new customerScreen();
+               
 
             } else {
                 JOptionPane.showMessageDialog(view.success, "Wrong Credentials");
@@ -42,6 +45,7 @@ public class Controller implements ActionListener {
         }
         if (e.getSource() == view.registerButton) {
 
+            
             new registerScreen();
         }
         if (e.getSource() == view.exitbutton) {
@@ -54,6 +58,6 @@ public class Controller implements ActionListener {
 
             new adminLogin();
         }
-        
+
     }
 }

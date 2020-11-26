@@ -21,7 +21,7 @@ public class Model {
             String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
             String dbUser = "Gabriel_2019386";
             String dbPassword = "2019386";
-            String query = "SELECT * FROM user WHERE username = '" + user.getUn() + "' AND password = '" + user.getPw() + "';";
+            String query = "SELECT * FROM users WHERE username = '" + user.getUn() + "' AND password = '" + user.getPw() + "';";
 
             // Get a connection to the database
             Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
