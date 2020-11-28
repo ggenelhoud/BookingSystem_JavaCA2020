@@ -17,10 +17,10 @@ import javax.swing.ImageIcon;
 public class MainFrame extends JFrame {
     
     public MainFrame(String Title){
-    //super(title);
-    this.setSize(700,300);
-    //this.setLocation (null);
+    this.setTitle("Grafton Barber");
+    this.setSize(700,550);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setLocationRelativeTo(null);
     
     JButton Bookings = new JButton("Bookings");
     JButton Feedback = new JButton("Feedback");
@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
     mainContainer.setLayout(new BorderLayout (8,6));
     mainContainer.setBackground(new Color(212, 198, 94));
     this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4, new Color(153, 120, 92)));
+    
     
     //LOGO BARBER
     ImageIcon barberLogo = new ImageIcon ("logo-barbershop.png");
@@ -47,7 +48,7 @@ public class MainFrame extends JFrame {
     topPanel.add(Close);
     
         
-    // ->> LEFT CENTER PANEL
+    // ->> LEFT CENTER PANEL 
     // LEFT FLOW LAYOUT
     JPanel lmidPanel = new JPanel();
     lmidPanel.setBorder(new LineBorder(new Color(169, 140, 7), 3));
@@ -55,10 +56,9 @@ public class MainFrame extends JFrame {
     lmidPanel.setBackground(new Color(153, 120, 92));
     
     
-    // LEFT GRID LAYOUT
+    // LEFT GRID LAYOUT // MENU NUTTONS
     JPanel lGridPanel = new JPanel();
     lGridPanel.setLayout(new GridLayout(2,1,5,5));
-    //lGridPanel.setBorder(new LineBorder(new Color(169, 140, 7),3));
     lGridPanel.setBackground(new Color(153, 120, 92));
     lGridPanel.add(Bookings);
     lGridPanel.add(Feedback);
