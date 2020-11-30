@@ -43,6 +43,7 @@ public class registerScreen extends JFrame implements ActionListener {
     public registerScreen() {
         //this.setSize(650, 830);
         this.setMinimumSize(new Dimension(650, 800));
+        this.setResizable(false);
         this.setTitle("Grafton Barber - Create an User Account");
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setVisible(true);

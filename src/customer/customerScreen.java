@@ -5,6 +5,8 @@
  */
 package customer;
 
+import controller.Controller;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import model.Model;
+import view.View;
 
 /**
  *
@@ -24,18 +28,15 @@ import javax.swing.border.Border;
  */
 public class customerScreen extends JFrame {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // Setting some attributes of the object
-        new customerScreen();
+    View view;
+
+    public customerScreen(View view) {
+
+         this.view = new View();
     }
 
     public customerScreen() {
-
         components();
-
     }
 
     public void components() {
@@ -49,7 +50,7 @@ public class customerScreen extends JFrame {
 
         JButton rep = new JButton("Sales Rep");
 
-        JLabel welcome = new JLabel("\t" + "Welcome Gabriel,");
+        JLabel welcome = new JLabel("Welcome, ");
         welcome.setFont(new Font("Arial", Font.PLAIN, 18));
         welcome.setForeground(Color.WHITE);
         JLabel two = new JLabel("two");
@@ -82,7 +83,6 @@ public class customerScreen extends JFrame {
         this.setLayout(manager);
 
         p1.add(welcome);
-        //p1.add(rep);
         p1.add(region);
         p1.add(product);
         p1.setBorder(border1);

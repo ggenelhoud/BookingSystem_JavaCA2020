@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 public class View extends JFrame {
 
@@ -35,11 +34,16 @@ public class View extends JFrame {
         validation();
     }
 
+    public View() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void components() {
 
         JPanel panel = new JPanel();//creating the panel
         frame = new JFrame();//creating the frame
-        frame.setMinimumSize(new Dimension(400, 230));//setting minimum window size
+        frame.setResizable(false);
+        frame.setMinimumSize(new Dimension(388, 212));//setting minimum window size
         //frame.setMaximumSize(new Dimension(350, 200));
         frame.setTitle("Grafton Barber");//labelling the name displayed on the top of the window
         frame.setSize(350, 200);//setting the program STARTING size

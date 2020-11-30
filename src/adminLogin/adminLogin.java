@@ -63,8 +63,9 @@ public class adminLogin extends JFrame implements ActionListener {
         panel.setBackground(Color.cyan);
         panel.setLayout(null);
         frame.setResizable(false);
+      
 
-        userLabel = new JLabel("E-mail:");
+        userLabel = new JLabel("Username:");
         userLabel.setBounds(10, 20, 80, 25);// dimensions are based in: x, y, width, height
         panel.add(userLabel);
 
