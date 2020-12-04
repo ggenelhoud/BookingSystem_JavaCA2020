@@ -5,6 +5,7 @@
  */
 package datapicker;
 
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -20,12 +21,17 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 /**
  *
  * @author bacana
  */
-public class MainWindow extends JFrame implements PropertyChangeListener {
+//public class MainWindow extends JFrame implements
+ public class MainWindow extends JPanel implements PropertyChangeListener {
 	
 	/**
 	 * 
@@ -33,34 +39,22 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	//the TextField for typing the date
 	JFormattedTextField  textField = new JFormattedTextField(DateFormat.getDateInstance(DateFormat.SHORT));
-	
-	public static void main(String[] args)
-	{
-		SwingUtilities.invokeLater(new Runnable() {
 
-                    public void run() {
-                        MainWindow window = null;
-                        try {
-                            window = new MainWindow();
-                            window.setVisible(true);
-                        }
-                        catch (Exception exp) {
-                            exp.printStackTrace();
-                        }
-                    }
-                });
-	}
-		
-		public MainWindow()
+        public MainWindow()
 		{
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
-			setSize(368, 362);
-			setTitle("Schedule Sample");
+//						
+			JPanel cp = new JPanel();
+                        cp.setPreferredSize (new Dimension (290,240));
+                        cp.setBackground(new Color(153, 120, 92));
+                        //cp.setBorder(new LineBorder(new Color(169, 140, 7), 3));
 			
-			Container cp = getContentPane();
-			FlowLayout flowLayout = new FlowLayout();
-			
-			cp.setLayout(flowLayout);			
+
+                        // Validation date
+                        JLabel msne = new JLabel("");
+                        
+                        
+			cp.setLayout(new FlowLayout());
+                    
 			 			
 			  
 			textField.setValue(new Date());
@@ -84,21 +78,22 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
                             calendarWindow.resetSelection(d);
                             calendarWindow.setUndecorated(true);
                             calendarWindow.setVisible(true);
+                            
                         });
 
 			//add the UI controls to the ContentPane
 			cp.add(textField);
 			cp.add(calendarButton);
 			cp.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-	        
-	        
+                        add(cp);
+	       
 		}
 		
         @Override
 		public void propertyChange(PropertyChangeEvent event) {
 			
         	//get the selected date from the calendar control and set it to the text field
-			if (event.getPropertyName().equals("selectedDate")) {
+	            if (event.getPropertyName().equals("selectedDate")) {
 	            
 				java.util.Calendar cal = (java.util.Calendar)event.getNewValue();
 				Date selDate =  cal.getTime();
