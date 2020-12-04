@@ -1,7 +1,10 @@
 package view;
 
 import controller.Controller;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -19,10 +22,11 @@ public class View extends JFrame {
     private JLabel passwordLabel;
     private JPasswordField userPassword;
     public JButton loginButton, registerButton;
-    public JLabel success;
+    public JLabel success, labelBarber;
     public JButton exitbutton;
     public JRadioButton adminButton;
     public JFrame frame;
+    public ImageIcon barberLogo;
     Controller controller;
 
     public View(Controller controller) {
@@ -42,54 +46,64 @@ public class View extends JFrame {
 
         JPanel panel = new JPanel();//creating the panel
         frame = new JFrame();//creating the frame
+
         frame.setResizable(false);
         frame.setMinimumSize(new Dimension(388, 212));//setting minimum window size
+
+        frame.setMinimumSize(new Dimension(400, 290));//setting minimum window size
         //frame.setMaximumSize(new Dimension(350, 200));
         frame.setTitle("Grafton Barber");//labelling the name displayed on the top of the window
-        frame.setSize(350, 200);//setting the program STARTING size
+        frame.setSize(350, 300);//setting the program STARTING size
         frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);//to stop running (on netbeans the "running stts" the program once it has been closed.
         frame.add(panel);//adding the panel to the frame
-        //panel.setBackground(Color.cyan);
+        panel.setBackground(new Color (153, 120, 92));
         panel.setLayout(null);
-
+        //frame.setLayout(new FlowLayout());
+        
+    //LOGO BARBER
+        barberLogo = new ImageIcon ("logo-barbershop.png");
+        labelBarber = new JLabel (barberLogo);
+        labelBarber.setBounds(150, 20, 65, 75);
+        panel.add(labelBarber);
+        
         userLabel = new JLabel("Username:");
-        userLabel.setBounds(10, 20, 80, 25);// dimensions are based in: x, y, width, height
+        userLabel.setBounds(10, 100, 80, 25);// dimensions are based in: x, y, width, height
         panel.add(userLabel);
 
         userName = new JTextField();
-        userName.setBounds(100, 20, 165, 25);
+        userName.setBounds(100, 100, 165, 25);
         panel.add(userName);
 
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(10, 50, 80, 25);
+        passwordLabel.setBounds(10, 130, 80, 25);
         panel.add(passwordLabel);
 
         userPassword = new JPasswordField();
-        userPassword.setBounds(100, 50, 165, 25);
+        userPassword.setBounds(100, 130, 165, 25);
         panel.add(userPassword);
 
-        exitbutton = new JButton("Exit");
-        exitbutton.setBounds(295, 140, 70, 25);
-        exitbutton.addActionListener(controller);
-        panel.add(exitbutton);
-
         loginButton = new JButton("Sign In");
-        loginButton.setBounds(100, 80, 80, 25);
+        loginButton.setBounds(100, 160, 80, 25);
         loginButton.addActionListener((controller));
         panel.add(loginButton);
 
         registerButton = new JButton("Register");
-        registerButton.setBounds(183, 80, 82, 25);
+        registerButton.setBounds(183, 160, 82, 25);
         registerButton.addActionListener(controller);
         panel.add(registerButton);
 
         adminButton = new JRadioButton("admin");
-        adminButton.setBounds(10, 140, 70, 25);
+        adminButton.setBounds(10, 200, 100, 25);
         adminButton.addActionListener(controller);
         panel.add(adminButton);
 
+        exitbutton = new JButton("Exit");
+        exitbutton.setBounds(250, 200, 70, 25);
+        exitbutton.addActionListener(controller);
+        panel.add(exitbutton);
+        
         success = new JLabel("");
-        success.setBounds(10, 110, 300, 25);
+        success.setBounds(10, 200, 300, 25);
         panel.add(success);
 
         frame.setVisible(true);
