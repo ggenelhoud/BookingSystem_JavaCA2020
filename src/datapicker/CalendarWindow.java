@@ -41,7 +41,7 @@ public class CalendarWindow extends JFrame{
 		changeSupport = new PropertyChangeSupport(this);
 
 		
-		calendar.setTheme(ThemeType.Light);
+		calendar.setTheme(ThemeType.Silver);
 
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
