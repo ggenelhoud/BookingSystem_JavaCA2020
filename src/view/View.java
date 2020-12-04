@@ -3,7 +3,7 @@ package view;
 import controller.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+//import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
+//import javax.swing.WindowConstants;
 
 public class View extends JFrame {
 
@@ -43,7 +43,7 @@ public class View extends JFrame {
 
         JPanel panel = new JPanel();//creating the panel
         frame = new JFrame();//creating the frame
-        frame.setMinimumSize(new Dimension(400, 290));//setting minimum window size
+        frame.setMinimumSize(new Dimension(350, 290));//setting minimum window size
         //frame.setMaximumSize(new Dimension(350, 200));
         frame.setTitle("Grafton Barber");//labelling the name displayed on the top of the window
         frame.setSize(350, 300);//setting the program STARTING size
@@ -51,7 +51,8 @@ public class View extends JFrame {
         frame.add(panel);//adding the panel to the frame
         panel.setBackground(new Color (153, 120, 92));
         panel.setLayout(null);
-        //frame.setLayout(new FlowLayout());
+        frame.setLocationRelativeTo(null);
+        
         
     //LOGO BARBER
         barberLogo = new ImageIcon ("logo-barbershop.png");
@@ -60,7 +61,7 @@ public class View extends JFrame {
         panel.add(labelBarber);
         
         userLabel = new JLabel("Username:");
-        userLabel.setBounds(10, 100, 80, 25);// dimensions are based in: x, y, width, height
+        userLabel.setBounds(20, 100, 80, 25);// dimensions are based in: x, y, width, height
         panel.add(userLabel);
 
         userName = new JTextField();
@@ -68,7 +69,7 @@ public class View extends JFrame {
         panel.add(userName);
 
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setBounds(10, 130, 80, 25);
+        passwordLabel.setBounds(20, 130, 80, 25);
         panel.add(passwordLabel);
 
         userPassword = new JPasswordField();
@@ -86,7 +87,7 @@ public class View extends JFrame {
         panel.add(registerButton);
 
         adminButton = new JRadioButton("admin");
-        adminButton.setBounds(10, 200, 100, 25);
+        adminButton.setBounds(20, 200, 100, 25);
         adminButton.addActionListener(controller);
         panel.add(adminButton);
 
@@ -96,9 +97,10 @@ public class View extends JFrame {
         panel.add(exitbutton);
         
         success = new JLabel("");
-        success.setBounds(10, 200, 300, 25);
+        success.setForeground(new Color(0xFFFFFF));
+        success.setBounds(100, 200, 300, 25);
         panel.add(success);
-
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }
