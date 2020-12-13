@@ -49,13 +49,15 @@ public class MainFrame extends JFrame {
         //LOGO BARBER
         ImageIcon barberLogo = new ImageIcon("logo-barbershop.png");
         JLabel labelBarber = new JLabel(barberLogo);
+       labelBarber.setBounds(20, 20, 100, 100);
 
         //Top Panel
         JPanel topPanel = new JPanel();
         topPanel.setBorder(new LineBorder(new Color(169, 140, 7), 3));
         topPanel.setBackground(new Color(153, 120, 92));
-        topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 250, 1));
-        mainContainer.add(topPanel, BorderLayout.NORTH);
+        topPanel.setLayout(new GridLayout(1,1));
+        Close.setBounds(100, 100, 40, 40);
+        mainContainer.add(topPanel, BorderLayout.PAGE_START);
         topPanel.add(labelBarber);
         topPanel.add(Close);
 
@@ -104,5 +106,9 @@ public class MainFrame extends JFrame {
         this.validate();
         this.repaint();
 
+        
+    }
+    public static void main(String[] args) {
+        new MainFrame();
     }
 }

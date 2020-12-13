@@ -4,7 +4,6 @@ import controller.Controller;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,7 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class registerScreen extends JFrame implements ActionListener {
-
+    //here we have all the variables declarations and they are all set to public by default
     JTextField fnameField, lnameField, emailField, phoneField, passwordField, repasswordField, usernameField;
     JLabel adminLabel, storeLocation;
     JButton register;
@@ -32,8 +31,9 @@ public class registerScreen extends JFrame implements ActionListener {
     JComboBox locationBox;
     ButtonGroup group;
     private String[] locations = {"Grafton Street", "Candem Street", "O'Connell Street"};
+    boolean success = false;
 
-    public registerScreen(Controller controller) {
+    public registerScreen(Controller controller) {//here we allow the controller to see this class
 
         this.controller = controller;
         new registerScreen();
@@ -41,39 +41,41 @@ public class registerScreen extends JFrame implements ActionListener {
     }
 
     public registerScreen() {
-        //this.setSize(650, 830);
+       //This method is basically a View(MVC) where we are going to be setting frame size and layouts.
         this.setMinimumSize(new Dimension(650, 800));
-        this.setResizable(false);
+        this.setResizable(false);//we dont want the user to resize the screen/window
         this.setTitle("Grafton Barber - Create an User Account");
-        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);//this will allow us to close only this window without killing the whole proccess
         this.setVisible(true);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         this.add(mainPanel);
-        
+
         adminLabel = new JLabel("Select registration mode:");
         adminLabel.setForeground(Color.RED);
         adminLabel.setFont(new Font("Arial", Font.BOLD, 17));
         adminLabel.setBounds(10, 40, 220, 25);
         mainPanel.add(adminLabel);
-        
+
         userButton = new JRadioButton("User");
         userButton.setBounds(213, 38, 60, 35);
         userButton.addActionListener(this);
         userButton.setSelected(false);
-        mainPanel.add(userButton);   
+        userButton.setActionCommand("userButton");
+        mainPanel.add(userButton);
 
         adminButton = new JRadioButton("Admin");
         adminButton.setBounds(270, 38, 80, 35);
         adminButton.addActionListener(this);
         adminButton.setSelected(false);
+        adminButton.setActionCommand("adminButton");
         mainPanel.add(adminButton);
-        
+
         group = new ButtonGroup();
         group.add(userButton);
         group.add(adminButton);
-        
+
         JLabel fname = new JLabel("First Name:");
         fname.setFont(new Font("Arial", Font.BOLD, 17));
         fname.setBounds(20, 105, 110, 30);// dimensions are based in: x, y, width, height
@@ -83,17 +85,17 @@ public class registerScreen extends JFrame implements ActionListener {
         fnameField.setBounds(180, 105, 375, 30);
         fnameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
         mainPanel.add(fnameField);
-        
+
         JLabel lname = new JLabel("Last Name:");
         lname.setFont(new Font("Arial", Font.BOLD, 17));
         lname.setBounds(20, 165, 90, 30);// dimensions are based in: x, y, width, height
         mainPanel.add(lname);
-        
+
         lnameField = new JTextField();
         lnameField.setBounds(180, 165, 375, 30);
         lnameField.setFont(new Font("Arial MT", Font.PLAIN, 18));
         mainPanel.add(lnameField);
-        
+
         JLabel username = new JLabel("Username:");
         username.setFont(new Font("Arial", Font.BOLD, 17));
         username.setBounds(20, 225, 110, 30);// dimensions are based in: x, y, width, height
@@ -149,9 +151,9 @@ public class registerScreen extends JFrame implements ActionListener {
 
         locationBox = new JComboBox(locations);
         locationBox.setBounds(180, 525, 377, 35);
-        locationBox.setBackground(Color.LIGHT_GRAY);
+        mainPanel.add(locationBox);
+        locationBox.setVisible(false);
         locationBox.setSelectedIndex(0);
-        mainPanel.add(locationBox).setVisible(false);
 
         register = new JButton("Register");
         register.setBounds(280, 580, 150, 80);
@@ -161,8 +163,10 @@ public class registerScreen extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {//Here is our action listener which will only be listening to the registerscreen(this) class
 
+        /*below we decided to create string variables in order to catch the value from the fields inside the register screen so we can
+        use this new created variables to put them into IF statements so thats where our validation will occur*/
         String fname = fnameField.getText();
         String lname = lnameField.getText();
         String username = usernameField.getText();
@@ -172,89 +176,99 @@ public class registerScreen extends JFrame implements ActionListener {
         String repassword = repasswordField.getText();
         int mobileLen = mobile.length();
         int passLen = password.length();
-
-        if ( adminButton.isSelected()) {
+        
+        //IF statements to make sure the user will correctly fill out the registration form
+        if (e.getActionCommand() == ("adminButton")) {
             System.out.println("admin radio button working");
             JOptionPane.showMessageDialog(this, "You are now registering as an Administrator.");
             storeLocation.setVisible(true);
             locationBox.setVisible(true);
-        }else if (userButton.isSelected()) {
+        } else if (e.getActionCommand() == ("userButton")) {
             System.out.println("user radio button working");
-            //JOptionPane.showMessageDialog(this, "You are now registering as an Administrator.");
+            JOptionPane.showMessageDialog(this, "You are now registering as an User.");
             storeLocation.setVisible(false);
             locationBox.setVisible(false);
-        }else{
+        } else if (e.getActionCommand() == ("userButton") && e.getActionCommand() == ("adminButton")) {
             JOptionPane.showMessageDialog(this, "Please choose a registration mode.");
-            }
-
-        if (fname.isEmpty() && lname.isEmpty()) {
+        } else if (fname.isEmpty() || lname.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter both first and last name!!!");
-        }
-        if (username.isEmpty()) {
+        } else if (username.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please choose a Username");
-        }
-        if (email.isEmpty()) {
+        } else if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "You must enter email address.");
-        }
-        if (mobileLen < 9 || mobileLen > 10) {
+        } else if (mobileLen < 9 || mobileLen > 10) {
             JOptionPane.showMessageDialog(this, "Please enter a valid phone number.");
-        }
-
-        if (passLen < 8) {
+        } else if (passLen < 8) {
             JOptionPane.showMessageDialog(this, "Password must be AT LEAST 8 characters long!!!");
-        }
-        if (repassword.isEmpty()) {
+        } else if (repassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "You must re-enter your password.");
-        }
-        if (!password.equals(repassword)) {
+        } else if (!password.equals(repassword)) {
             JOptionPane.showMessageDialog(this, "Passwords does not match!!!");
+        } else {//here im using a boolean to check if the validation proccess was successful or not, if it was it'll allow the information to be sent to the database.
+            success = true;
+        }
+        if (success != false) {
+            Connection();
         }
 
         System.out.println(password);
         System.out.println(repassword);
 
-        try {
-            String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
-            String dbUser = "Gabriel_2019386";
-            String dbPassword = "2019386";
-            String query = "INSERT INTO users (f_name, l_name, username, password, email_address, phone_number)"
-                    + " VALUES('" + fnameField.getText() + "','" +lnameField.getText()+ "','" + usernameField.getText()+ "','" + passwordField.getText()
-                    + "','" + emailField.getText() + "','" + phoneField.getText()+"')";
-
-            Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
-            Statement stmt = conn.createStatement();
-            int x = stmt.executeUpdate(query);
-            if (x == 0) {
-                JOptionPane.showMessageDialog(this, "This is alredy exist");
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "Welcome, Your account is sucessfully created");
-            }
-
-            stmt.close();
-            conn.close();
-        } catch (Exception d) {
-            System.out.println(d);
-        }
     }
 
-//    public String getNameField() {
-//        return fnameField.getText();
-//    }
-//
-//    public String getEmailField() {
-//        return emailField.getText();
-//    }
-//
-//    public String getPhoneField() {
-//        return phoneField.getText();
-//    }
-//
-//    public String getPasswordField() {
-//        return passwordField.getText();
-//    }
-//
-//    public String getRePassword() {
-//        return repasswordField.getText();
-//    }
+    public void Connection() {//Here in this method we have the database connection, query,execute and result taking place
+        
+        /*Here we use 2 IF statements to check which one of the radio buttons was selected so that the query will change and the 
+        information will be sent to a different table within the databse depending on which radio button was selected
+        */
+        if (userButton.isSelected()) {
+
+            try {
+                String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
+                String dbUser = "Gabriel_2019386";
+                String dbPassword = "2019386";
+                String query = "INSERT INTO users (f_name, l_name, username, password, email_address, phone_number)"
+                        + " VALUES('" + fnameField.getText() + "','" + lnameField.getText() + "','" + usernameField.getText() + "','" + passwordField.getText()
+                        + "','" + emailField.getText() + "','" + phoneField.getText() + "')";
+
+                Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
+                Statement stmt = conn.createStatement();
+                int x = stmt.executeUpdate(query);
+                if (x == 0) {
+                    JOptionPane.showMessageDialog(this, "This already exist");
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "Welcome, Your account is sucessfully created");
+                }
+
+                stmt.close();
+                conn.close();
+            } catch (Exception d) {
+                System.out.println(d);
+            }
+        } else if (adminButton.isSelected()) {
+            try {
+                String dbServer = "jdbc:mysql://apontejaj.com:3306/Gabriel_2019386?useSSL=false";
+                String dbUser = "Gabriel_2019386";
+                String dbPassword = "2019386";
+                String query = "INSERT INTO admin (f_name, l_name, username, password, email_address, phone_number, location)"
+                        + " VALUES('" + fnameField.getText() + "','" + lnameField.getText() + "','" + usernameField.getText() + "','" + passwordField.getText()
+                        + "','" + emailField.getText() + "','" + phoneField.getText() + "','" + locationBox.getSelectedItem()+ "')";
+
+                Connection conn = DriverManager.getConnection(dbServer, dbUser, dbPassword);
+                Statement stmt = conn.createStatement();
+                int x = stmt.executeUpdate(query);
+                if (x == 0) {//this will allow us to prevent from duplicates accounts
+                    JOptionPane.showMessageDialog(this, "This already exist");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Welcome, Your admin account is sucessfully created");
+                }
+
+                stmt.close();
+                conn.close();
+            } catch (Exception d) {
+            }
+
+        }
+    }
 }

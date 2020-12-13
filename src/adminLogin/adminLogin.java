@@ -1,6 +1,6 @@
 package adminLogin;
 
-import customer.customerScreen;
+import customer.MainFrame;
 import RegisterScreen.registerScreen;
 import controller.Controller;
 import model.Model;
@@ -38,13 +38,13 @@ public class adminLogin extends JFrame implements ActionListener {
 
     String[] locations = {"Grafton Street", "Candem Street", "O'Connell Street"};
 
-    public adminLogin(Controller controller) {
+    public adminLogin(Controller controller) {//letting the controller see the class and also calling the default contructor
 
         this.controller = controller;
         new adminLogin();
     }
 
-    public adminLogin() {
+    public adminLogin() {//default contructor calling the other methods
         components();
         frameValidation();
     }
@@ -58,11 +58,11 @@ public class adminLogin extends JFrame implements ActionListener {
         frame.setTitle("Administrator");//labelling the name displayed on the top of the window
         panel.setBackground(Color.CYAN);
         frame.setSize(350, 200);//setting the program STARTING size
-        frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);//to stop running (on netbeans the "running stts" the program once it has been closed.
+        frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);//this will allow us to close only this window without killing the whole proccess
         frame.add(panel);//adding the panel to the frame
         panel.setBackground(Color.cyan);
         panel.setLayout(null);
-        frame.setResizable(false);
+        frame.setResizable(false);//we dont want the user to resize the screen/frame
       
 
         userLabel = new JLabel("Username:");
@@ -117,7 +117,7 @@ public class adminLogin extends JFrame implements ActionListener {
         this.validate();
         this.repaint();
     }
-
+//getters and setters to get user name and password so we can use that in the User.java class to verify users credentials
     public String getUsername() {
         return userName.getText();
     }
@@ -146,7 +146,7 @@ public class adminLogin extends JFrame implements ActionListener {
 
             if ((result)) {
                 JOptionPane.showMessageDialog(this, "Logged in successfuly!!!");
-                new customerScreen();
+                new MainFrame();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Wrong Credentials");
